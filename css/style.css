@@ -71,6 +71,9 @@ html {
   font-size: 16px;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
+  width: 100%;
+  max-width: 100%;
+  overflow-x: hidden;
 }
 
 body {
@@ -78,6 +81,8 @@ body {
   background-color: var(--bg-warm);
   color: var(--text-body);
   line-height: 1.65;
+  width: 100%;
+  max-width: 100%;
   overflow-x: hidden;
   min-height: 100vh;
   display: flex;
@@ -534,20 +539,24 @@ li {
 .mobile-drawer {
   position: fixed;
   top: 0;
-  right: -320px;
+  right: 0;
   width: 300px;
+  max-width: 85vw;
   height: 100vh;
   background: #ffffff;
   box-shadow: -4px 0 24px rgba(0, 0, 0, 0.15);
   z-index: 2000;
-  transition: right 0.35s ease-in-out;
+  transform: translateX(100%);
+  visibility: hidden;
+  transition: transform 0.35s ease-in-out, visibility 0.35s ease-in-out;
   display: flex;
   flex-direction: column;
   overflow-y: auto;
 }
 
 .mobile-drawer.open {
-  right: 0;
+  transform: translateX(0);
+  visibility: visible;
 }
 
 .drawer-header {
@@ -810,10 +819,46 @@ li {
   text-decoration: underline;
 }
 
+/* --- RESPONSIVE TWO-COLUMN LAYOUTS --- */
+.two-col-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 3.5rem;
+  align-items: start;
+}
+
+.about-intro-grid {
+  display: grid;
+  grid-template-columns: 360px 1fr;
+  gap: 3.5rem;
+  align-items: start;
+}
+
+.contact-layout-grid {
+  display: grid;
+  grid-template-columns: 1fr 1.2fr;
+  gap: 3.5rem;
+  align-items: start;
+}
+
+.report-layout-grid {
+  display: grid;
+  grid-template-columns: 1.2fr 1fr;
+  gap: 3.5rem;
+  align-items: start;
+}
+
+.service-card-layout {
+  display: grid;
+  grid-template-columns: 280px 1fr;
+  gap: 2.5rem;
+  align-items: start;
+}
+
 /* --- CARDS & GRIDS --- */
 .card-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
   gap: 2rem;
 }
 
@@ -1242,7 +1287,8 @@ li {
 .zodiac-header {
   display: flex;
   align-items: center;
-  gap: 1.5rem;
+  flex-wrap: wrap;
+  gap: 1.25rem;
   margin-bottom: 1.5rem;
   border-bottom: 1px solid var(--border-subtle);
   padding-bottom: 1.5rem;
@@ -1904,6 +1950,14 @@ textarea.form-control {
 }
 
 @media (max-width: 1024px) {
+  .two-col-grid,
+  .about-intro-grid,
+  .contact-layout-grid,
+  .report-layout-grid,
+  .service-card-layout {
+    grid-template-columns: 1fr;
+    gap: 2.5rem;
+  }
   .nav-menu {
     display: none;
   }
@@ -1974,6 +2028,14 @@ textarea.form-control {
   }
   .top-bar-notice {
     display: none;
+  }
+  .two-col-grid,
+  .about-intro-grid,
+  .contact-layout-grid,
+  .report-layout-grid,
+  .service-card-layout {
+    grid-template-columns: 1fr;
+    gap: 2rem;
   }
   .card-grid {
     grid-template-columns: 1fr;
